@@ -1,0 +1,41 @@
+#main{
+
+background-image: url(newcontact.png);
+background-size: cover;
+}
+
+.card {
+  background-color: #d8c9aa27;
+  width: 400px;
+ border: 0px;
+ margin-top: 2%;
+}
+
+.form-control {
+  background-color: #ffffff00;
+  border: none;
+  border-bottom: 1px solid #c5ae81;
+  border-radius: 1px;
+  padding: 2px;
+  padding-bottom: 8px
+}
+
+  .form-control:focus {
+    background-color: #ffffff00;
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #c5ae81;
+    color: #c5ae81
+  }
+
+.btn-secondary {
+  height: 50px;
+  border-radius: 30px
+}
+.size-lg {
+    font-size:70px !important;
+}
+
+.terms {
+  font-size: 13px
+}

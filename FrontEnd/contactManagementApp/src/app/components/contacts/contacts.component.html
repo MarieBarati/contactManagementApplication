@@ -1,0 +1,102 @@
+<div class="right_col" role="main">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>
+            <span>
+              <span class="material-icons">
+                perm_contact_calendar
+              </span>
+
+              Contact list
+            </span>
+
+
+            <button routerLink="add" type="button" class="btn btn-success btn-xs btn-add float-end">
+              <span class="material-icons size-s"  >
+                person_add
+              </span>
+
+              New Contact
+            </button>
+          </h2>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <div class="search-grid">
+            <i class="fa fa-search mt-4"></i>
+            <div class="col-md-3 col-xs-12 col-sx-12 mt-3" style="background-color:pink">
+              <!--<input type="text" name="name" value="" class="searchinput"
+                     (input)="SearcheServiceName($event.target.value)"
+                     placeholder="search name ..." #name />-->
+            </div>
+          
+          </div>
+         
+        </div>
+        <div class="table table-responsive">
+          <table class="table  table-bordered bulk_action">
+            <thead>
+              <tr class="headings">
+                <th class="col-lg-2 column-title">
+                  <label class="container" style="cursor:pointer">
+                    <!-- <i class="{{ascending==true?'fa fa-sort-alpha-asc' : 'fa fa-sort-alpha-desc'}} sort-icon"></i>-->
+                    Name
+                    <!-- <input type="checkbox" hidden checked="checked" id="sort" (click)="Search()" class="" #sort>-->
+                  </label>
+                </th>
+
+                <th class="col-lg-2 column-title no-link last text-center">
+                  <span class="nobr">home phone number</span>
+                </th>
+
+                <th class="col-lg-2 column-title no-link last text-center">
+                  <span class="nobr">business phone number </span>
+                </th>
+                <th class="col-lg-2 column-title no-link last text-center">
+                  <span class="nobr">moblie phone number</span>
+                </th>
+                <th class="col-lg-2 column-title no-link last text-center">
+                  <span class="nobr">e-mail address</span>
+                </th>
+
+                <th class="col-lg-1 column-title no-link last text-center">
+                  <span class="nobr">Action</span>
+                </th>
+
+              </tr>
+            </thead>
+            <tbody>
+           
+              <tr *ngFor="let contact of contacts" class="even pointer">
+                <td class="text-center">{{ contact.firstName +  contact.lastName}}</td>
+                <td  class="text-center">{{ contact.homePhoneNumber }}</td>
+                <td  class="text-center">{{ contact.businessPhoneNumber }}</td>
+                <td  class="text-center">{{ contact.mobilePhoneNumber }}</td>
+                <td  class="text-center">{{ contact.email }}</td>
+                <td  class="text-center">
+                  <a class="btn btn-info  btn-sm float-none"
+                     routerLink="edit/{{contact.id}}">
+                    <i class="fa fa-pencil">
+                    </i> Edit
+                  </a>
+                  <a class="btn btn-danger  btn-sm float-none"
+                     (confirm)="Delete(contact.id)"
+                     mwlConfirmationPopover
+                     popoverTitle="delete"
+                     popoverMessage="Are You SURE?">
+                    <i class="fa fa-trash-o"></i>
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
