@@ -12,42 +12,49 @@ const httpOptions = {
 };
 
 @Injectable()
+
 export class ContactService {
-  constructor(private http: HttpClient) { }
+  private apiURL = "http://localhost:5000/api/contacts";
+   
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+  
+  constructor(private httpClient: HttpClient) { }
+   
 
   // get all contact data
-  getAllContact(url: string): Observable<IContact[]> {
-    return this.http.get<IContact[]>(url)
+  getAllContact(): Observable<IContact[]> {
+    
+    return this.httpClient.get<IContact[]>(this.apiURL)
       .pipe(
         catchError(this.handleError)
-      );
-  }
+    );
 
-  // insert new contact details
-  addContact(url: string, contact: IContact): Observable<any> {
-    return this.http.post(url, JSON.stringify(contact), httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
   }
+  getById(id: string) {
+    const newurl = `${this.apiURL}/${id}`;  
+    return this.httpClient.get<IContact>(newurl);
+}
 
-  // update contact details
-  updateContact(url: string, id: number, contact: IContact): Observable<any> {
-    const newurl = `${url}?id=${id}`;
-    return this.http.put(newurl, contact, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  addContact(params: IContact) {
+    console.log(params)
+    return this.httpClient.post(this.apiURL, params);
+}
 
-  // delete contact information
-  deleteContact(url: string, id: number): Observable<any> {
-    const newurl = `${url}?id=${id}`; // DELETE api/contact?id=42
-    return this.http.delete(newurl, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  updateContact(id: string, params: IContact) {
+    const newurl = `${this.apiURL}/${id}`;
+    return this.httpClient.put(newurl, params);
+}
+
+  deleteContact(id: string) {
+    console.log(id)
+    return this.httpClient.delete(`${this.apiURL}/${id}`);
+}
+
+
 
   // custom handler
   private handleError(error: HttpErrorResponse) {

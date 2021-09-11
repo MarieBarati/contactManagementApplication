@@ -1,6 +1,6 @@
-<div class="right_col" role="main">
+<div  role="main">
   <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-10 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
           <h2>
@@ -61,7 +61,7 @@
                   <span class="nobr">e-mail address</span>
                 </th>
 
-                <th class="col-lg-1 column-title no-link last text-center">
+                <th class="col-lg-2 column-title no-link last text-center">
                   <span class="nobr">Action</span>
                 </th>
 
@@ -83,9 +83,14 @@
                   </a>
                   <a class="btn btn-danger  btn-sm float-none"
                      (confirm)="Delete(contact.id)"
+                     (cancel)="cancelClicked = true"
                      mwlConfirmationPopover
                      popoverTitle="delete"
-                     popoverMessage="Are You SURE?">
+                     popoverMessage="Delete {{ contact.firstName +  contact.lastName}}?"
+                     placement="left"
+                     (confirm)="confirmClicked = true">
+                     
+                  
                     <i class="fa fa-trash-o"></i>
                     Delete
                   </a>

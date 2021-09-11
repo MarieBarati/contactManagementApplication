@@ -10,9 +10,16 @@ import { UpdateComponent } from 'src/app/components/update/update.component';
 import { CreateComponent } from 'src/app/components/create/create.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MaterialModule } from '../shared/modules/material/material.module';
-
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { ContactService } from './services/contacts.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AlertService } from './services/alter.service';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+const maskConfig: Partial<IConfig> = {
+  validation: true,
+};
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,14 +30,23 @@ import { MaterialModule } from '../shared/modules/material/material.module';
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
     BsDropdownModule,
     TooltipModule,
     ModalModule,
     MaterialModule,
+    NgxMaskModule.forRoot(maskConfig),
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger', // set defaults here
+    }),
   ],
-  providers: [],
+  providers: [
+    ContactService,
+    AlertService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

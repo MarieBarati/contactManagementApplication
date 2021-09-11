@@ -1,10 +1,10 @@
 export interface IContact {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
-  homePhoneNumber: number;
-  businessPhoneNumber: number;
-  mobilePhoneNumber: number;
+  homePhoneNumber: string;
+  businessPhoneNumber: string;
+  mobilePhoneNumber: string;
   email: string;
 }
 //first name(required, max 50 characters)
