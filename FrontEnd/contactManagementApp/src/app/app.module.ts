@@ -13,10 +13,12 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MaterialModule } from '../shared/modules/material/material.module';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 import { ContactService } from './services/contacts.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AlertService } from './services/alter.service';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotificationService } from './services/notification.service';
 const maskConfig: Partial<IConfig> = {
   validation: true,
 };
@@ -31,6 +33,11 @@ const maskConfig: Partial<IConfig> = {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: "toast-top-center"
+    }),
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     NgxPaginationModule,
@@ -43,9 +50,10 @@ const maskConfig: Partial<IConfig> = {
       confirmButtonType: 'danger', // set defaults here
     }),
   ],
+  
   providers: [
     ContactService,
-    AlertService,
+    NotificationService,
   ],
   bootstrap: [AppComponent]
 })

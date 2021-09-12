@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-
-import { AlertService } from 'src/app/services/alter.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ContactService } from 'src/app/services/contacts.service';
+import { first } from 'rxjs/operators';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-create',
@@ -21,8 +20,7 @@ export class CreateComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private contactservise: ContactService,
-    private alertService: AlertService,
-    
+    private notifyService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -57,7 +55,6 @@ export class CreateComponent implements OnInit {
   }
   onSubmit() {
       this.submitted = true;   
-      this.alertService.clear();
 
     if (this.form.invalid) {
       console.log("invalidform");
@@ -69,12 +66,14 @@ export class CreateComponent implements OnInit {
   }
 
   private addContact() {
-    
+     
       this.contactservise.addContact(this.form.value)
           .pipe(first())
-          .subscribe(() => {
-              this.alertService.success('Contact added', { keepAfterRouteChange: true });
-              this.router.navigate([''], { relativeTo: this.route });
+        .subscribe(() => {
+          this.notifyService.showSuccess('Contact added','add');
+        },
+          error => {
+            this.notifyService.showError(error, "Add Contact Error");
           })
           .add(() => this.loading = false);
   }

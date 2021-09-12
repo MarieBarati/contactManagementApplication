@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ContactService } from 'src/app/services/contacts.service';
-import { AlertService } from '../../services/alter.service';
+import { NotificationService } from '../../services/notification.service';
+
 
 @Component({
   selector: 'app-update',
@@ -18,7 +19,7 @@ export class UpdateComponent implements OnInit
   constructor(
     private activatedRoute: ActivatedRoute,
     private contactservice: ContactService,
-    private alterservice: AlertService
+    private notifyservice: NotificationService,
   ) { this.id = this.activatedRoute.snapshot.params.id;}
   
   ngOnInit() {
@@ -54,12 +55,10 @@ export class UpdateComponent implements OnInit
   }
 
   getContact() {
-    // this.spinner.show();
+   
     this.contactservice.getById(this.id).subscribe(
       res => {
-       // this.spinner.hide();
-        // this.toastrService.success('استعلام اطلاعات با موفقیت انجام شد');
-        console.log(res);
+       
         this.form.patchValue(
           {
             'firstName': res.firstName,
@@ -69,17 +68,16 @@ export class UpdateComponent implements OnInit
             'mobilePhoneNumber': res.businessPhoneNumber,
             'email': res.email
          
-          })
+          },)
        
       },
       error => {
-        console.log(error);
-        //this.spinner.show();
+        this.notifyservice.showError(error,"Get Contact Error");   
       })
   }
+
   onSubmit() {
     this.submitted = true;
-    this.alterservice.clear();
 
     if (this.form.invalid) {
       console.log("invalidform");
@@ -90,10 +88,14 @@ export class UpdateComponent implements OnInit
 
   }
   update() {
-
+    
     this.contactservice.updateContact(this.id, this.form.value).subscribe(res => {
-      console.log("dddd");
-    }
+      this.loading = false;
+      this.notifyservice.showSuccess('User Updated','Update');
+    },
+      error => {
+        this.notifyservice.showError(error, "Update Contact Error");
+      }
     );
   }
 }
