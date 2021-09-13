@@ -1,4 +1,4 @@
-<div  role="main" id="main">
+<div role="main" id="main">
   <div class="row ">
     <div class="col-md-12 col-sm-12 col-xs-12 col-sm-12 ">
       <div class="x_panel transparent-bg">
@@ -21,7 +21,7 @@
             </h2>
             <div class="clearfix"></div>
           </div>
-         
+
         </div>
         <div class="x_content">
           <div class="search-grid">
@@ -36,10 +36,12 @@
               </div>
               <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 
-                <input (input)="searchinput($event.target.value)" type="text" class="form-control" placeholder="First Name" #firstname>
+                <input (input)="searchinput($event.target.value)" type="text" class="form-control"
+                  placeholder="First Name" #firstname>
               </div>
               <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 mb-3">
-                <input (input)="searchinput($event.target.value)" type="text" class="form-control" placeholder="Last Name" #lastname>
+                <input (input)="searchinput($event.target.value)" type="text" class="form-control"
+                  placeholder="Last Name" #lastname>
               </div>
               <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12 mb-3">
                 <span class="text-center total" *ngIf="total>0">
@@ -54,7 +56,7 @@
           <div class="row" *ngIf="isSearched">
             <p class="empty-table">
               No matching results found
-             </p>
+            </p>
           </div>
 
         </div>
@@ -91,7 +93,9 @@
             </thead>
             <tbody>
 
-              <tr *ngFor="let contact of contacts| paginate: { itemsPerPage:pageSize, currentPage: page,totalItems: total }" class="even pointer">
+              <tr
+                *ngFor="let contact of contacts| paginate: { itemsPerPage:pageSize, currentPage: page,totalItems: total }"
+                class="even pointer">
                 <td class="text-center">{{ contact.firstName }} {{contact.lastName}}</td>
                 <td class="text-center">{{ contact.homePhoneNumber | mask: '000-000-0000'}}</td>
                 <td class="text-center">{{ contact.businessPhoneNumber | mask: '000-000-0000 ext.000'}}</td>
@@ -99,14 +103,16 @@
                 <td class="text-center">{{ contact.email }}</td>
                 <td class="text-center">
                   <button (click)="view(contact.id)" type="button" class="btn btn-outline-secondary  btn-sm"
-                         data-bs-toggle="tooltip" data-bs-placement="top" title="view Contact"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="view Contact" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
                     <span class="material-icons size-s">
                       visibility
                     </span>
 
                   </button>
                   <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -129,17 +135,19 @@
                                   call
                                 </span>
 
-                                Home Phone :<span>  {{ viewcontactInfo?.homePhoneNumber| mask: '000-000-0000' }}</span>
+                                Home Phone :<span> {{ viewcontactInfo?.homePhoneNumber| mask: '000-000-0000' }}</span>
                               </p>
                               <p class="view" *ngIf="viewcontactInfo?.businessPhoneNumber">
                                 <span class="material-icons view-icon">
                                   phone_iphone
                                 </span>
-                                Business Phone :<span>  {{ viewcontactInfo?.businessPhoneNumber | mask: '000-000-0000 ext.000'}}</span>
+                                Business Phone :<span> {{ viewcontactInfo?.businessPhoneNumber | mask: '000-000-0000
+                                  ext.000'}}</span>
                               </p>
                               <p class="view" *ngIf="viewcontactInfo?.mobilePhoneNumber">
                                 <span class="material-icons view-icon"> phone_iphone</span>
-                                Mobile Phone :<span> {{ viewcontactInfo?.mobilePhoneNumber | mask: '000-000-0000'}}</span>
+                                Mobile Phone :<span> {{ viewcontactInfo?.mobilePhoneNumber | mask:
+                                  '000-000-0000'}}</span>
                               </p>
                               <p class="view" *ngIf="viewcontactInfo?.email">
                                 <span class="material-icons view-icon">
@@ -153,28 +161,25 @@
 
                         </div>
                         <div class="modal-footer">
-                             <button type="button" class="btn btn-info" disabled>Copy</button>
+                          <button type="button" class="btn btn-info" disabled>Copy</button>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                       
+
                         </div>
                       </div>
                     </div>
                   </div>
-                  <a class="btn btn-outline-info mar-5 btn-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Contact" routerLink="edit/{{contact.id}}">
+                  <a class="btn btn-outline-info mar-5 btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Edit Contact" routerLink="edit/{{contact.id}}">
                     <span class="material-icons size-s">
                       mode
                     </span>
 
                   </a>
 
-                  <a class="btn btn-outline-danger mar-5 btn-sm"
-                     data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Contact"
-                     (confirm)="Delete(contact.id,page)"
-                     (cancel)="cancelClicked = true"
-                     mwlConfirmationPopover
-                     popoverTitle="delete"
-                     popoverMessage="Delete {{ contact.firstName +  contact.lastName}}?"
-                     placement="left">
+                  <a class="btn btn-outline-danger mar-5 btn-sm" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Delete Contact" (confirm)="Delete(contact.id,page)" (cancel)="cancelClicked = true"
+                    mwlConfirmationPopover popoverTitle="delete"
+                    popoverMessage="Delete {{ contact.firstName +  contact.lastName}}?" placement="left">
                     <span class="material-icons size-s">
                       delete
                     </span>
@@ -190,15 +195,10 @@
       </div>
 
     </div>
-    <pagination-controls class="col-lg-12 col-md-12 col-sm-12 text-center"
-                         (pageChange)="pageChanged($event)"
-                         (pageBoundsCorrection)="pageChanged($event)">
+    <pagination-controls class="col-lg-12 col-md-12 col-sm-12 text-center" (pageChange)="pageChanged($event)"
+      (pageBoundsCorrection)="pageChanged($event)">
     </pagination-controls>
-   
+
   </div>
 
 </div>
-
-
-
-

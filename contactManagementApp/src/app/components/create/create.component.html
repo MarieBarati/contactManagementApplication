@@ -17,18 +17,17 @@
       <div class="clearfix"></div>
     </div>
 
-    <div class="d-flex justify-content-center .justify-content-sm-center .justify-content-lg-center  .justify-content-md-center" id="main">
+    <div
+      class="d-flex justify-content-center .justify-content-sm-center .justify-content-lg-center  .justify-content-md-center"
+      id="main">
       <div class="card p-6 center py-4">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="px-sm-4 mt-3 px-3">
 
             <div class="form-group ">
 
-              <input type="text"
-                     formControlName="firstName"
-                     class="form-control mt-3"
-                     placeholder="First name"
-                     [ngClass]="{ 'is-invalid': submitted && firstName.errors }" />
+              <input type="text" formControlName="firstName" class="form-control mt-3" placeholder="First name"
+                [ngClass]="{ 'is-invalid': submitted && firstName.errors }" />
               <div *ngIf="firstName.touched && !firstName.valid" class="invalid-feedback">
                 <div *ngIf="firstName.errors.required">First Name is required</div>
                 <div *ngIf="firstName.hasError('pattern')">First Name is invalid</div>
@@ -39,11 +38,8 @@
 
             <div class="form-group ">
 
-              <input type="text"
-                     formControlName="lastName"
-                     class="form-control mt-3"
-                     placeholder="Last name"
-                     [ngClass]="{ 'is-invalid': submitted && lastName.errors }" />
+              <input type="text" formControlName="lastName" class="form-control mt-3" placeholder="Last name"
+                [ngClass]="{ 'is-invalid': submitted && lastName.errors }" />
               <div *ngIf="lastName.touched  && !lastName.valid" class="invalid-feedback">
                 <div *ngIf="lastName.errors.required">Last Name is required</div>
                 <div *ngIf="lastName.hasError('pattern')">Last Name is invalid</div>
@@ -53,12 +49,9 @@
 
 
             <div class="form-group ">
-              <input type="text"
-                     formControlName="businessPhoneNumber"
-                     class="form-control mt-3"
-                     placeholder="Bussiness Phone Number xxx-xxx-xxxx"
-                     mask="000-000-0000"
-                     [ngClass]="{ 'is-invalid': submitted && businessPhoneNumber.hasError('mask')}" />
+              <input type="text" formControlName="businessPhoneNumber" class="form-control mt-3"
+                placeholder="Bussiness Phone Number xxx-xxx-xxxx" mask="000-000-0000"
+                [ngClass]="{ 'is-invalid': submitted && businessPhoneNumber.hasError('mask')}" />
               <div *ngIf="!businessPhoneNumber.valid && businessPhoneNumber.touched" class="invalid-feedback">
                 <div *ngIf="!businessPhoneNumber.hasError('mask')">Please provide valid Bussiness phone number</div>
 
@@ -66,36 +59,26 @@
             </div>
 
             <div class="form-group ">
-              <input type="tel"
-                     formControlName="homePhoneNumber"
-                     class="form-control mt-3"
-                     placeholder="Home Phone Number xxx-xxx-xxxx "
-                     mask="000-000-0000"
-                     [ngClass]="{ 'is-invalid': submitted && homePhoneNumber.hasError('mask') }"
-                     >
+              <input type="tel" formControlName="homePhoneNumber" class="form-control mt-3"
+                placeholder="Home Phone Number xxx-xxx-xxxx " mask="000-000-0000"
+                [ngClass]="{ 'is-invalid': submitted && homePhoneNumber.hasError('mask') }">
               <div *ngIf="!homePhoneNumber.valid && homePhoneNumber.touched" class="invalid-feedback">
                 <div *ngIf="homePhoneNumber.hasError('mask')">Please provide valid Home phone number</div>
               </div>
             </div>
 
             <div class="form-group ">
-              <input type="tel"
-                     formControlName="mobilePhoneNumber"
-                     class="form-control mt-3"
-                     placeholder="Mobile Phone Number xxx-xxx-xxxx"
-                     mask="000-000-0000"
-                     [ngClass]="{ 'is-invalid': submitted && mobilePhoneNumber.hasError('mask') }" />
+              <input type="tel" formControlName="mobilePhoneNumber" class="form-control mt-3"
+                placeholder="Mobile Phone Number xxx-xxx-xxxx" mask="000-000-0000"
+                [ngClass]="{ 'is-invalid': submitted && mobilePhoneNumber.hasError('mask') }" />
               <div *ngIf="!mobilePhoneNumber.valid && mobilePhoneNumber.touched" class="invalid-feedback">
                 <div *ngIf="mobilePhoneNumber.hasError('mask')">Please provide valid Mobile phone number</div>
               </div>
             </div>
 
             <div class="form-group ">
-              <input type="text"
-                     formControlName="email"
-                     class="form-control mt-3"
-                     placeholder="Email address"
-                     [ngClass]="{ 'is-invalid': submitted && email.hasError('email')}" />
+              <input type="text" formControlName="email" class="form-control mt-3" placeholder="Email address"
+                [ngClass]="{ 'is-invalid': submitted && email.hasError('email')}" />
               <div *ngIf="!email.valid && email.touched" class="invalid-feedback">
                 <div *ngIf="email.hasError('email')">Please provide valid Email</div>
               </div>
@@ -112,7 +95,7 @@
             </div>
 
             <div class="px-5 mt-4">
-              <button type="reset"  class="btn btn-light w-100 ">Clear Form</button>
+              <button type="reset" class="btn btn-light w-100 ">Clear Form</button>
             </div>
 
           </div>
@@ -125,5 +108,3 @@
   </div>
 
 </div>
-
-

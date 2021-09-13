@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { from, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { IContact } from 'src/app/models/contact';
 import { NotificationService } from './notification.service';
+import { GlobalConstants } from 'src/app/common/global-constants';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,8 +17,8 @@ const httpOptions = {
 
 export class ContactService {
   errorMessage = '';
-  private apiURL = 'http://localhost:5000/api/contacts';
-  private searchURL = 'http://localhost:5000/api/search';
+  private apiURL = GlobalConstants.apiURL;
+  private searchURL = GlobalConstants.searchURL;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -25,7 +26,7 @@ export class ContactService {
   };
 
   constructor(private httpClient: HttpClient,
-              private notifyservice: NotificationService
+    private notifyservice: NotificationService
   ) { }
 
 
@@ -37,34 +38,34 @@ export class ContactService {
       .pipe(
         catchError(this.handleError)
 
-    );
+      );
   }
-  getById(id: string): Observable<IContact>  {
+  getById(id: string): Observable<IContact> {
     const newurl = `${this.apiURL}/${id}`;
     return this.httpClient.get<IContact>(newurl).pipe(
       catchError(this.handleError)
     );
-}
+  }
 
   addContact(params: IContact) {
 
     return this.httpClient.post(this.apiURL, params).pipe(
       catchError(this.handleError)
     );
-}
+  }
 
   updateContact(id: string, params: IContact) {
     const newurl = `${this.apiURL}/${id}`;
     return this.httpClient.put(newurl, params).pipe(
       catchError(this.handleError)
     );
-}
+  }
 
   deleteContact(id: string) {
     return this.httpClient.delete(`${this.apiURL}/${id}`).pipe(
       catchError(this.handleError)
     );
-}
+  }
 
   search(firstname: string, lastname: string, pagesize: number, page: number): Observable<any> {
     const params = new HttpParams()
@@ -90,7 +91,7 @@ export class ContactService {
       // The backend returned an unsuccessful response code.
       switch (err.status) {
         case 400:
-          this.errorMessage = `Backend error is ${ err.error.title } .Bad Request.`;
+          this.errorMessage = `Backend error is ${err.error.title} .Bad Request.`;
           break;
         case 401:
           this.errorMessage = `Backend error is ${err.error.title} .You need to log in to do this action.`;
