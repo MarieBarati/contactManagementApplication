@@ -19,11 +19,11 @@ export class ContactsComponent implements OnInit {
   @ViewChild('lastname') lName;
   searchSubject: Subject<string> = new Subject<string>();
   lastname: Subject<string> = new Subject<string>();
-  page: number = 1;
-  pageSize: number = 4;
-  delay: number = 1000;
-  showModal: boolean = false;
-  isSearched: boolean = false;
+  page = 1;
+  pageSize = 4;
+  delay = 1000;
+  showModal = false;
+  isSearched = false;
   content: any;
   viewcontactInfo: IContact;
   title: any;
@@ -46,7 +46,7 @@ export class ContactsComponent implements OnInit {
     },
 
       error => {
-        this.notifyservise.showError(error, "Search Error");
+        this.notifyservise.showError(error, 'Search Error');
 
       });
 
@@ -56,13 +56,13 @@ export class ContactsComponent implements OnInit {
       this.searchSubject.pipe(debounceTime(this.delay), distinctUntilChanged())
         .subscribe(c => {
           console.log(event);
-          console.log("fname:", this.fName.nativeElement.value, "lname:", this.lName.nativeElement.value);
+          console.log('fname:', this.fName.nativeElement.value, 'lname:', this.lName.nativeElement.value);
           this.search(this.fName.nativeElement.value, this.lName.nativeElement.value);
         });
-    
-    this.searchSubject.next(event);
+
+      this.searchSubject.next(event);
   }
- 
+
 
   back() {
     this.Get(1);
@@ -70,17 +70,18 @@ export class ContactsComponent implements OnInit {
     this.lName.nativeElement.value = '';
   }
   Get(page: number) {
-    if (page == 0)
+    if (page == 0) {
       page = 1;
+    }
     this.contactService.getAllContact(page, this.pageSize).subscribe(data => {
-    
+
       this.contacts = data.contactList;
       this.total = data.totalNumber;
       this.page = page;
-     
-     
+
+
     }, error => {
-      this.notifyservise.showError(error,"Get Contact Error");
+      this.notifyservise.showError(error, 'Get Contact Error');
       }
     );
   }
@@ -90,7 +91,7 @@ export class ContactsComponent implements OnInit {
   }
 
   pageChanged(event) {
-   
+
     this.Get(event);
   }
 
@@ -99,15 +100,15 @@ export class ContactsComponent implements OnInit {
     this.contacts = this.contacts.filter(item => item.id !== id);
     if (this.contacts.filter(item => item.id !== id).length == 0) {
 
-      this.Get(page-1);;
+      this.Get(page - 1);
     } else {
-      this.Get(page);;
+      this.Get(page);
     }
-  
-    this.notifyservise.showSuccess("Delete Succeccfull!","Delete");
+
+    this.notifyservise.showSuccess('Delete Succeccfull!', 'Delete');
   }, error => {
-    this.notifyservise.showError(error, "Delete Error");
-  })
+    this.notifyservise.showError(error, 'Delete Error');
+  });
 }
 }
 

@@ -15,22 +15,22 @@ const httpOptions = {
 @Injectable()
 
 export class ContactService {
-  errorMessage: string = '';
-  private apiURL = "http://localhost:5000/api/contacts";
-  private searchURL ="http://localhost:5000/api/search"
+  errorMessage = '';
+  private apiURL = 'http://localhost:5000/api/contacts';
+  private searchURL = 'http://localhost:5000/api/search';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
-  }
-  
+  };
+
   constructor(private httpClient: HttpClient,
-    private notifyservice: NotificationService
+              private notifyservice: NotificationService
   ) { }
-   
+
 
   getAllContact(page: number, pagesize: number): Observable<any> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('PageNumber', page.toString())
       .set('PageSize', pagesize.toString());
     return this.httpClient.get<any>(this.apiURL, { params })
@@ -39,15 +39,15 @@ export class ContactService {
 
     );
   }
-  getById(id: string):Observable<IContact>  {
-    const newurl = `${this.apiURL}/${id}`;  
+  getById(id: string): Observable<IContact>  {
+    const newurl = `${this.apiURL}/${id}`;
     return this.httpClient.get<IContact>(newurl).pipe(
       catchError(this.handleError)
     );
 }
 
   addContact(params: IContact) {
-    
+
     return this.httpClient.post(this.apiURL, params).pipe(
       catchError(this.handleError)
     );
@@ -67,12 +67,12 @@ export class ContactService {
 }
 
   search(firstname: string, lastname: string, pagesize: number, page: number): Observable<any> {
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('firstname', firstname)
       .set('lastname', lastname)
       .set('PageNumber', page.toString())
       .set('PageSize', pagesize.toString());
-    return this.httpClient.get<any>(this.searchURL,{ params })
+    return this.httpClient.get<any>(this.searchURL, { params })
       .pipe(
         catchError(this.handleError)
       );
@@ -82,7 +82,7 @@ export class ContactService {
 
   // custom handler
   public handleError(err: HttpErrorResponse) {
-    
+
     if (err.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       this.errorMessage = `An error occurred: ${err.error.message}`;
@@ -90,7 +90,7 @@ export class ContactService {
       // The backend returned an unsuccessful response code.
       switch (err.status) {
         case 400:
-          this.errorMessage =`Backend error is ${ err.error.title } .Bad Request.`;
+          this.errorMessage = `Backend error is ${ err.error.title } .Bad Request.`;
           break;
         case 401:
           this.errorMessage = `Backend error is ${err.error.title} .You need to log in to do this action.`;
@@ -114,13 +114,13 @@ export class ContactService {
           this.errorMessage = `Backend error is ${err.error.title} Validation Error!`;
           break;
         default:
-          this.errorMessage = "Something went wrong!";
+          this.errorMessage = 'Something went wrong!';
       }
     }
     // return an observable with a user-facing error message
     return throwError(this.errorMessage);
   }
-  
-   
-  
+
+
+
 }

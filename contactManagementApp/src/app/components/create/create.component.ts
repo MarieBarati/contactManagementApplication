@@ -19,7 +19,7 @@ export class CreateComponent implements OnInit {
       private route: ActivatedRoute,
       private router: Router,
       private contactservise: ContactService,
-    private notifyService: NotificationService
+      private notifyService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -54,17 +54,17 @@ export class CreateComponent implements OnInit {
   onSubmit() {
       this.submitted = true;
 
-    if (this.form.invalid) {
-      console.log("invalidform");
-          return;
+      if (this.form.invalid) {
+      console.log('invalidform');
+      return;
       }
-    this.loading = true;
-          this.addContact();
+      this.loading = true;
+      this.addContact();
 
   }
 
   private addContact() {
-    
+
       this.contactservise.addContact(this.form.value)
           .pipe(first())
         .subscribe(() => {
@@ -73,7 +73,7 @@ export class CreateComponent implements OnInit {
           this.form.reset();
         },
           error => {
-            this.notifyService.showError(error, "Add Contact Error");
+            this.notifyService.showError(error, 'Add Contact Error');
           })
           .add(() => this.loading = false);
   }

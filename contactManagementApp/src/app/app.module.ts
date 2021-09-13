@@ -35,7 +35,7 @@ const maskConfig: Partial<IConfig> = {
     ReactiveFormsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
-      positionClass: "toast-top-center"
+      positionClass: 'toast-top-center'
     }),
     BrowserAnimationsModule,
     HttpClientModule,
@@ -50,7 +50,7 @@ const maskConfig: Partial<IConfig> = {
       confirmButtonType: 'danger', // set defaults here
     }),
   ],
-  
+
   providers: [
     ContactService,
     NotificationService,

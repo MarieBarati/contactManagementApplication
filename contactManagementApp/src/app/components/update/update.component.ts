@@ -61,26 +61,26 @@ export class UpdateComponent implements OnInit {
 
         this.form.patchValue(
           {
-            'firstName': res.firstName,
-            'lastName': res.lastName,
-            'businessPhoneNumber': res.businessPhoneNumber,
-            'homePhoneNumber': res.homePhoneNumber,
-            'mobilePhoneNumber': res.mobilePhoneNumber,
-            'email': res.email
+            firstName: res.firstName,
+            lastName: res.lastName,
+            businessPhoneNumber: res.businessPhoneNumber,
+            homePhoneNumber: res.homePhoneNumber,
+            mobilePhoneNumber: res.mobilePhoneNumber,
+            email: res.email
 
-          })
+          });
 
       },
       error => {
-        this.notifyservice.showError(error, "Get Contact Error");
-      })
+        this.notifyservice.showError(error, 'Get Contact Error');
+      });
   }
 
   onSubmit() {
     this.submitted = true;
 
     if (this.form.invalid) {
-      console.log("invalidform");
+      console.log('invalidform');
       return;
     }
     this.loading = true;
@@ -92,10 +92,10 @@ export class UpdateComponent implements OnInit {
     this.contactservice.updateContact(this.id, this.form.value).subscribe(res => {
       this.loading = false;
       this.notifyservice.showSuccess('User Updated succesed', 'Update');
-      this.router.navigate(['']);// Just in case for using router in code//
+      this.router.navigate(['']); // Just in case for using router in code//
     },
       error => {
-        this.notifyservice.showError(error, "Update Contact Error");
+        this.notifyservice.showError(error, 'Update Contact Error');
       }
     );
   }
