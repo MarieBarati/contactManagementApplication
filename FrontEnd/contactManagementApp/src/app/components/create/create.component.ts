@@ -15,7 +15,6 @@ export class CreateComponent implements OnInit {
   form!: FormGroup;
   loading = false;
   submitted = false;
-
   constructor(
       private route: ActivatedRoute,
       private router: Router,
@@ -29,13 +28,12 @@ export class CreateComponent implements OnInit {
       lastName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z \-\']+')]),
       email: new FormControl('',  Validators.email),
       mobilePhoneNumber: new FormControl('', Validators.maxLength(10)),
-      homePhoneNumber: new FormControl('',  Validators.maxLength(10)),
-      businessPhoneNumber: new FormControl('', Validators.maxLength(10))
-    });   
+      homePhoneNumber: new FormControl('', Validators.maxLength(10)),
+      businessPhoneNumber: new FormControl('', Validators.maxLength(10)) });
   }
 
   get firstName() {
-    
+
     return this.form.get('firstName') as FormControl;
   }
   get lastName() {
@@ -54,7 +52,7 @@ export class CreateComponent implements OnInit {
     return this.form.get('email') as FormControl;
   }
   onSubmit() {
-      this.submitted = true;   
+      this.submitted = true;
 
     if (this.form.invalid) {
       console.log("invalidform");
@@ -62,15 +60,17 @@ export class CreateComponent implements OnInit {
       }
     this.loading = true;
           this.addContact();
-      
+
   }
 
   private addContact() {
-     
+    
       this.contactservise.addContact(this.form.value)
           .pipe(first())
         .subscribe(() => {
-          this.notifyService.showSuccess('Contact added','add');
+          this.notifyService.showSuccess('Contact added', 'add');
+          this.submitted = false;
+          this.form.reset();
         },
           error => {
             this.notifyService.showError(error, "Add Contact Error");

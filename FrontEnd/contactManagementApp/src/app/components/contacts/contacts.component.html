@@ -1,59 +1,60 @@
 <div  role="main" id="main">
   <div class="row ">
-    <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12 col-sm-12 ">
       <div class="x_panel transparent-bg">
         <div class="x_title">
-          <h2>
-            <span>
+          <div class="row">
+            <h2>
+
               <span class="material-icons">
                 perm_contact_calendar
               </span>
 
               Contact list
-            </span>
 
-
-            <button routerLink="add" type="button" class="btn btn-success btn-xs btn-add float-end">
-              <span class="material-icons size-s">
-                person_add
-              </span>
-              Add
-            </button>
-          </h2>
-          <div class="clearfix"></div>
+              <button routerLink="add" type="button" class="btn btn-success btn-xs btn-add float-end">
+                <span class="material-icons size-s">
+                  person_add
+                </span>
+                Add
+              </button>
+            </h2>
+            <div class="clearfix"></div>
+          </div>
+         
         </div>
         <div class="x_content">
-          <div class="search-grid " style="margin:15px 15px 15px 0px">
+          <div class="search-grid">
+            <div class="row g-3">
+              <div class="col-md-1 col-lg-1 col-xs-12 col-sm-12 mb-3">
+                <h6>
+                  <span class="material-icons">
+                    search
+                  </span>
+                  Search
+                </h6>
+              </div>
+              <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
 
-            <div class="col-md-6 col-xs-12 col-sx-12 mt-3">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="firstname" #firstname>
-                <input type="text" class="form-control" placeholder="lastname" #lastname>
-
-                <div class="input-group-append">
-                  <button (click)="search(firstname.value,lastname.value)" class="btn btn-outline-secondary" type="button">
-                    <span class="material-icons size-s">
-                      search
-                    </span>
-                    Search
-                  </button>
-                </div>
+                <input (input)="searchinput($event.target.value)" type="text" class="form-control" placeholder="First Name" #firstname>
+              </div>
+              <div class="col-md-4 col-lg-4 col-xs-12 col-sm-12 mb-3">
+                <input (input)="searchinput($event.target.value)" type="text" class="form-control" placeholder="Last Name" #lastname>
+              </div>
+              <div class="col-md-3 col-lg-3 col-xs-12 col-sm-12 mb-3">
+                <span class="text-center total" *ngIf="total>0">
+                  Number of Contacts: {{total}}
+                </span>
               </div>
             </div>
-
           </div>
 
         </div>
-        <div class="col-md-6 col-xs-12 col-sx-12" *ngIf="contacts?.length ==0">
+        <div class="col-md-6 col-xs-12 col-sm-12  col-sx-12" *ngIf="contacts?.length ==0">
           <div class="row" *ngIf="isSearched">
             <p class="empty-table">
-              {{firstname.value}} {{lastname.value}} is not exist.
-              <button class="btn btn-outline-dark float-end" type="button" (click)="back()">
-                Back
-              </button>
-
-            </p>
-
+              No matching results found
+             </p>
           </div>
 
         </div>
@@ -69,14 +70,14 @@
                 </th>
 
                 <th class="col-lg-2 column-title no-link last text-center">
-                  <span class="nobr">Home phone number</span>
+                  <span class="nobr">Home Phone Number</span>
                 </th>
 
                 <th class="col-lg-2 column-title no-link last text-center">
-                  <span class="nobr">Business phone number </span>
+                  <span class="nobr">Business Phone Number </span>
                 </th>
                 <th class="col-lg-2 column-title no-link last text-center">
-                  <span class="nobr">Moblie phone number</span>
+                  <span class="nobr">Moblie phone Number</span>
                 </th>
                 <th class="col-lg-2 column-title no-link last text-center">
                   <span class="nobr">Email</span>
@@ -93,7 +94,7 @@
               <tr *ngFor="let contact of contacts| paginate: { itemsPerPage:pageSize, currentPage: page,totalItems: total }" class="even pointer">
                 <td class="text-center">{{ contact.firstName }} {{contact.lastName}}</td>
                 <td class="text-center">{{ contact.homePhoneNumber | mask: '000-000-0000'}}</td>
-                <td class="text-center">{{ contact.businessPhoneNumber | mask: '000-000-0000'}}</td>
+                <td class="text-center">{{ contact.businessPhoneNumber | mask: '000-000-0000 ext.000'}}</td>
                 <td class="text-center">{{ contact.mobilePhoneNumber| mask: '000-000-0000' }}</td>
                 <td class="text-center">{{ contact.email }}</td>
                 <td class="text-center">
@@ -115,7 +116,7 @@
                         <div class="modal-body ">
 
                           <div class="row">
-                            <div class="col-md-10 col-lg-10 col-xs-12">
+                            <div class="col-md-10 col-lg-10 col-xs-12 col-sm-12 ">
                               <p class="view text-star">
                                 <span class="material-icons view-icon ">
                                   person
@@ -134,7 +135,7 @@
                                 <span class="material-icons view-icon">
                                   phone_iphone
                                 </span>
-                                Business Phone :<span>  {{ viewcontactInfo?.businessPhoneNumber | mask: '000-000-0000'}}</span>
+                                Business Phone :<span>  {{ viewcontactInfo?.businessPhoneNumber | mask: '000-000-0000 ext.000'}}</span>
                               </p>
                               <p class="view" *ngIf="viewcontactInfo?.mobilePhoneNumber">
                                 <span class="material-icons view-icon"> phone_iphone</span>
@@ -168,7 +169,7 @@
 
                   <a class="btn btn-outline-danger mar-5 btn-sm"
                      data-bs-toggle="tooltip" data-bs-placement="top" title="Delete Contact"
-                     (confirm)="Delete(contact.id)"
+                     (confirm)="Delete(contact.id,page)"
                      (cancel)="cancelClicked = true"
                      mwlConfirmationPopover
                      popoverTitle="delete"
@@ -189,10 +190,11 @@
       </div>
 
     </div>
-    <pagination-controls class="text-center"
+    <pagination-controls class="col-lg-12 col-md-12 col-sm-12 text-center"
                          (pageChange)="pageChanged($event)"
                          (pageBoundsCorrection)="pageChanged($event)">
     </pagination-controls>
+   
   </div>
 
 </div>

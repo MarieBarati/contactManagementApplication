@@ -85,7 +85,7 @@
                        formControlName="mobilePhoneNumber"
                        class="form-control mt-3"
                        placeholder="Mobile phone number"
-                       mask="000-000-0000"
+                       mask="000-000-0000 ext.XXX"
                        [ngClass]="{ 'is-invalid': submitted && mobilePhoneNumber.hasError('mask') }" />
                 <div *ngIf="!mobilePhoneNumber.valid && mobilePhoneNumber.touched" class="invalid-feedback">
                   <div *ngIf="mobilePhoneNumber.hasError('mask')">Please provide valid Mobile phone number</div>

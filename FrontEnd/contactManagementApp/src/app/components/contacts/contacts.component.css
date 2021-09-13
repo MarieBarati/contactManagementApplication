@@ -17,6 +17,16 @@
     background-image:url('view.png');
     background-size:cover,
 }
+
+.total {
+  font-size: 14px;
+  font-weight: 700;
+  color: green;
+  border-radius: 55px;
+  padding: 10px;
+  background-color: #e0f2f1;
+  vertical-align: middle;
+}
 .view {
   padding: 12px 0px 12px 10px;
   text-align: left;
@@ -31,9 +41,7 @@
   color: #5c6bc0;
 }
 .empty-table {
-  font-size: 20px;
   color: #dc714b;
-  background-color: #eee;
   padding: 10px;
   overflow-wrap: break-word;
 }
