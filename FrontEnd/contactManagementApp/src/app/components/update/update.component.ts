@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ContactService } from 'src/app/services/contacts.service';
 import { NotificationService } from '../../services/notification.service';
 
@@ -10,18 +10,18 @@ import { NotificationService } from '../../services/notification.service';
   templateUrl: './update.component.html',
   styleUrls: ['./update.component.css']
 })
-export class UpdateComponent implements OnInit
-{
+export class UpdateComponent implements OnInit {
   form: FormGroup;
   id!: string;
   submitted = false;
   loading = false;
   constructor(
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private contactservice: ContactService,
     private notifyservice: NotificationService,
-  ) { this.id = this.activatedRoute.snapshot.params.id;}
-  
+  ) { this.id = this.activatedRoute.snapshot.params.id; }
+
   ngOnInit() {
     this.form = new FormGroup({
       firstName: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z \-\']+')]),
@@ -55,24 +55,24 @@ export class UpdateComponent implements OnInit
   }
 
   getContact() {
-   
+
     this.contactservice.getById(this.id).subscribe(
       res => {
-       
+
         this.form.patchValue(
           {
             'firstName': res.firstName,
             'lastName': res.lastName,
             'businessPhoneNumber': res.businessPhoneNumber,
             'homePhoneNumber': res.homePhoneNumber,
-            'mobilePhoneNumber': res.businessPhoneNumber,
+            'mobilePhoneNumber': res.mobilePhoneNumber,
             'email': res.email
-         
-          },)
-       
+
+          })
+
       },
       error => {
-        this.notifyservice.showError(error,"Get Contact Error");   
+        this.notifyservice.showError(error, "Get Contact Error");
       })
   }
 
@@ -88,10 +88,11 @@ export class UpdateComponent implements OnInit
 
   }
   update() {
-    
+
     this.contactservice.updateContact(this.id, this.form.value).subscribe(res => {
       this.loading = false;
-      this.notifyservice.showSuccess('User Updated','Update');
+      this.notifyservice.showSuccess('User Updated succesed', 'Update');
+      this.router.navigate(['']);// Just in case for using router in code//
     },
       error => {
         this.notifyservice.showError(error, "Update Contact Error");
